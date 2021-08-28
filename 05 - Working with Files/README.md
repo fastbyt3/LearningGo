@@ -73,4 +73,14 @@ os.Open("existing.txt")
 
 - there are several ways to write to a file some involve overwriting the file and other approaches append data to file
 - `ioutil.FileWrite(<file>, <str>, <permission/mode>)` this is a straight-forward way of overwriting a file
-- 
+- to append data to a file we need to :
+  + Open the file with `os.Open(file, permissions, mode)`
+  + Append data with : `os.WriteString(<string>`
+
+### Rename a file
+
+```go
+os.rename(src, dest)
+```
+
+---
