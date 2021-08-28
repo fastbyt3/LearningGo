@@ -10,9 +10,9 @@ import (
 // func <name>(<params>) <ret type> {}
 func checkIfExists(fileName string) bool {
 	if _, err := os.Stat(fileName); err == nil {
-		fmt.Println("File exists!!")
+		fmt.Println("Does the File exist : YES")
 	} else {
-		fmt.Println("File doesn't exist")
+		fmt.Println("Does the File exist : NO")
 		return false
 	}
 	// fmt.Println(os.Stat(fileName))
@@ -21,6 +21,9 @@ func checkIfExists(fileName string) bool {
 
 func readFile(fileName string) {
 	contentBytes, err := ioutil.ReadFile(fileName)
+
+	fmt.Printf("\nFile contents: \n")
+
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -35,11 +38,25 @@ func overwriteFile(fileName string) {
 	}
 }
 
+func appendToFile(fileName string) {
+	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, 0644)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	if _, err := f.WriteString("\nAppending text\n"); err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
 	fileName := "DoIExist"
 	exists := checkIfExists(fileName)
 	if exists == true {
 		overwriteFile(fileName)
+		appendToFile(fileName)
 		readFile(fileName)
 	}
 

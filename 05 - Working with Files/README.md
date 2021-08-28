@@ -70,3 +70,7 @@ openedFile.WriteString("text")
 os.Create("new.txt")
 os.Open("existing.txt")
 ```
+
+- there are several ways to write to a file some involve overwriting the file and other approaches append data to file
+- `ioutil.FileWrite(<file>, <str>, <permission/mode>)` this is a straight-forward way of overwriting a file
+- 
