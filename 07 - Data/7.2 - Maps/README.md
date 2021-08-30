@@ -32,3 +32,13 @@ delete(map3, "C") // deletes "C" key
 
 - can be iterated over similar to arrays using `range`
 
+### Map of a map
+
+- it is possible to create a map as a value for a map
+- syntax:
+
+```go
+newMap := map[string]map[string]string{}
+```
+
+---
