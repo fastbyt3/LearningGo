@@ -2,41 +2,28 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"runtime"
 	"time"
 )
 
-func get(URL string) {
-	resp, err := http.Get(URL)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	sb := string(body)
-	fmt.Println(sb)
-}
-
 func main() {
-	fmt.Println(runtime.NumGoroutine())
-	go get("https://fastbyt3.github.io/")
-	go get("https://pronoun.is/he")
-	fmt.Println(runtime.NumGoroutine())
-	time.Sleep(20 * time.Second)
-	fmt.Println(runtime.NumGoroutine())
-
-	// i := 1
-	// for runtime.NumGoroutine() != 1 {
-	// 	fmt.Println("Delay: ", i)
-	// 	fmt.Println("No of goroutines: ", runtime.NumGoroutine())
-	// 	time.Sleep(5 * time.Second)
-	// 	i++
-	// }
-	// time.Sleep(10 * time.Millisecond)
+	messages := make(chan int)
+	go func() {
+		time.Sleep(time.Second * 3)
+		messages <- 1
+	}()
+	go func() {
+		time.Sleep(time.Second * 2)
+		messages <- 2
+	}()
+	go func() {
+		time.Sleep(time.Second * 1)
+		messages <- 3
+	}()
+	for i := 0; i < 3; i++ {
+		fmt.Println(<-messages)
+	}
 }
+
+// Reference: https://nathanleclaire.com/blog/2014/02/21/how-to-wait-for-all-goroutines-to-finish-executing-before-continuing-part-two-fixing-my-ooops/
+
+// messages <- 1 ===> data 1 is stored at memory loc message : Channel : more abt it in next module
