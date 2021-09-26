@@ -27,5 +27,5 @@ func main() {
 	// time.Sleep(1 * time.Second)
 
 	fmt.Println("Name of person:", (<-c).name)
-	// fmt.Println("Age of person:", (<-c).age)
+	// fmt.Println("Age of person:", (<-c).age) : Errors since the channel is closed as the work is over
 }
