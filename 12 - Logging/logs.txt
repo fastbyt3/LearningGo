@@ -1,0 +1,4 @@
+2021/11/03 10:48:25 Writing to file!
+INFO: 2021/11/03 10:54:44 logPkg.go:43: Inside customLogger function
+WARNING: 2021/11/03 10:54:44 logPkg.go:44: Please look into this function it looks incomplete
+ERROR: 2021/11/03 10:54:44 logPkg.go:45: Arggh I QUIT!
