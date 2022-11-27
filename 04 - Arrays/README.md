@@ -77,3 +77,41 @@ for i, val := range arr {
 ```
 
 - if we dont have a use for index we can use `_`
+
+
+### Notes
+
+- In code below:
+    ```golang
+    func mod1(a []int) {
+        for i := range a {
+            a[i] = 5
+        }
+
+        fmt.Println("1:", a)
+    }
+
+    func mod2(a []int) {
+        a = append(a, 125) // !
+
+        for i := range a {
+            a[i] = 5
+        }
+
+        fmt.Println("2:", a)
+    }
+
+    func main() {
+        s1 := []int{1, 2, 3, 4}
+        mod1(s1)
+        fmt.Println("1:", s1)
+
+        s2 := []int{1, 2, 3, 4}
+        mod2(s2)
+        fmt.Println("2:", s2)
+    }
+    ```
+    - The output is `1 [5 5 5 5] 1 [5 5 5 5] 2 [5 5 5 5 5] 2 [1 2 3 4]`
+    - This is because in mod1 we pass `a` as a Link so any changes made get reflected
+    - The same case applies for mod2 but using `append(a, 125)` ends up increasing size of arr thus creating a new arr
+    - so `a` in mod2 is an entirely new arr

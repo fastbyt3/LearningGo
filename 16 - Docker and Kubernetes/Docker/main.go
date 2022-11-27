@@ -31,3 +31,8 @@ func IndexPagePutMsg(resp http.ResponseWriter, req *http.Request) {
 
 	fmt.Println("Returned: ", Message)
 }
+
+// test() returns the string "hi"
+func test() {
+	fmt.Println("Test func")
+}

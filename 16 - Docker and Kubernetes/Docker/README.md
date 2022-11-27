@@ -40,3 +40,14 @@ Since we need to create a portfwd tunnel we have to use `--publish` to create th
 ```bash
 docker run --publish 8080:8080 go-docker-test
 ```
+
+## Docker Multi-stage builds
+
+> [https://docs.docker.com/language/golang/build-images/#multi-stage-builds](Multi stage builds go docs)
+
+- create a docker instance to build the executable
+- create another instance -> place the executable in the new instance -> execute it
+
+## Further development
+
+Read: [https://docs.docker.com/language/golang/develop/](Containers for development docs)

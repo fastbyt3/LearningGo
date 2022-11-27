@@ -1,8 +1,9 @@
 package main
 
-import "fmt"
-
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 func foo() {
 	fmt.Println("This is foo!")

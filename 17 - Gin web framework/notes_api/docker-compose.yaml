@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  db:
+    container_name: notesdb
+    image: mysql
+    hostname: db
+    environment:
+      GET_HOST_FROM: "dns"
+      MYSQL_DATABASE: "notes"
+      MYSQL_USER: "gouser"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
