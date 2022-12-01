@@ -14,7 +14,8 @@ import (
 */
 
 type IntSet struct {
-	words []uint64
+	words  []uint64
+	length int
 }
 
 // Add non-negative val x to set
@@ -29,6 +30,35 @@ func (s *IntSet) Add(x int) {
 	}
 	// Modify bit
 	s.words[word] |= 1 << bit
+	s.length++
+}
+
+func (s *IntSet) AddAll(x ...int) {
+	for _, i := range x {
+		s.Add(i)
+	}
+}
+
+// return number of elements
+func (s *IntSet) Len() int {
+	return s.length
+}
+
+// remove x from set
+func (s *IntSet) Remove(x int) {
+	word, bit := x/64, uint(x%64)
+	if !s.Has(x) {
+		fmt.Println("You high or something? the elem doesnt exist...")
+	} else {
+		s.words[word] &^= 1 << bit
+		s.length--
+	}
+}
+
+// Remove all elem from set
+func (s *IntSet) Clear() {
+	s.words = nil
+	s.length = 0
 }
 
 // Check whether non-negative val x exists
@@ -75,12 +105,24 @@ func (s *IntSet) String() string {
 	return buf.String()
 }
 
+func (s *IntSet) Copy() *IntSet {
+	cp := new(IntSet)
+	cp.words = make([]uint64, len(s.words))
+	copy(cp.words, s.words)
+	cp.length = s.length
+	return cp
+}
+
 func main() {
 	var x, y IntSet
-	x.Add(1)
-	x.Add(3)
-	x.Has(1)
-	x.Has(2)
+	x.AddAll(1, 3)
+	fmt.Println("x: ", x.String(), " len= ", x.length)
+	fmt.Printf("x has 1? %v\n", x.Has(1))
+	x.Remove(1)
+	fmt.Println("x after removing 1: ", x.String())
+	fmt.Printf("x has 1? %v\n", x.Has(1))
+	fmt.Printf("x has 2? %v\n", x.Has(1))
+	x.Add(5)
 	fmt.Println("x: ", x.String())
 
 	y.Add(2)
@@ -88,5 +130,8 @@ func main() {
 	fmt.Println("y: ", y.String())
 
 	x.UnionsWith(&y)
-	fmt.Println("x: ", x.String())
+	fmt.Println("x after union with y: ", x.String())
+
+	z := x.Copy()
+	fmt.Printf("z: %v", z)
 }
